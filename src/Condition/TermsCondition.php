@@ -12,9 +12,13 @@ class TermsCondition extends FieldCondition
     {
         parent::__construct($field);
 
-        foreach ($values as $value) {
+        foreach ($values as $index => $value) {
             if (!\is_int($value) && !\is_float($value) && !\is_string($value) && !\is_bool($value)) {
-                throw new \InvalidArgumentException('"terms" query only supports bool, int, float and string values.');
+                if (\is_object($value) && $value instanceof \Stringable) {
+                    $values[$index] = (string) $value;
+                } else {
+                    throw new \InvalidArgumentException('"terms" query only supports bool, int, float and string values.');
+                }
             }
         }
         $this->values = $values;

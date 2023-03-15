@@ -13,7 +13,11 @@ class TermCondition extends FieldCondition
         parent::__construct($field);
 
         if (!\is_int($value) && !\is_float($value) && !\is_string($value) && !\is_bool($value)) {
-            throw new \InvalidArgumentException('"term" query only supports bool, int, float and string values.');
+            if (\is_object($value) && $value instanceof \Stringable) {
+                $value = (string) $value;
+            } else {
+                throw new \InvalidArgumentException('"term" query only supports bool, int, float and string values.');
+            }
         }
         $this->value = $value;
     }
