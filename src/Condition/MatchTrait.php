@@ -10,14 +10,6 @@ trait MatchTrait
 {
     use ArbitraryTrait;
 
-    const FLAG_ALL = 'ALL';
-    const FLAG_AND = 'AND';
-    const FLAG_NOT = 'NOT';
-    const FLAG_OR = 'OR';
-
-    const LOW_FREQ_OR = 'or';
-    const LOW_FREQ_AND = 'and';
-
     /**
      * @return $this
      */
@@ -41,9 +33,9 @@ trait MatchTrait
     /**
      * @return $this
      */
-    public function fuziness(?int $value): self
+    public function fuzziness(?int $value): self
     {
-        $this->arbitrary('fuziness', null === $value ? 'AUTO' : $value);
+        $this->arbitrary('fuzziness', null === $value ? 'AUTO' : $value);
 
         return $this;
     }
